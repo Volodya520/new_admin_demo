@@ -1,0 +1,7 @@
+#创建一个账号，为注册管理姐买你的注册账号作为测试数据
+- case2:
+    fullname: Registermanager
+    displayname: Registermanager
+    SIS_ID: 2023426
+    mail: linghuidu15@gmail.com
+    new_pw: wenhua123
