@@ -1,0 +1,90 @@
+#0登录
+- Locator_Login:
+    login_btn: "/html/body/div[1]/div/div/header/nav/div/button"
+    login_name: "userLoginName"
+    login_pw: "userPassword"
+    login_submit: '//*[@id="loginForm"]/button'
+
+
+#1用户
+- User: '//*[@id="app"]/div/div[2]/div[2]/div[2]/div[1]/div/ul/li[3]/ul/div[3]/a/li'
+
+#2账号管理用户操作
+- Usermanage_moreoption: '/html/body/div/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[6]/div/div/div'
+
+#3用户账号管理模块
+- account_manage: '/html/body/div[1]/div/div[3]/section/div/div[2]/div[1]/div/div/div/div[2]'
+
+
+#4邀请的用户
+- Locator_invite_user:
+    inv_user_btn: '/html/body/div/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[1]/form/div[3]/button[1]'
+    mail_adress: '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[3]/div/div/div[2]/div/div[1]/form/div[1]/div/div/textarea'
+    regist_to: '//*[@id="pane-accountManager"]/div/div[3]/div/div/div[2]/div/div[1]/form/div[2]/div/div/div[1]'
+    select_regist_to: "(//span[@class='el-radio__inner'])[2]"
+    role: "(//input[@placeholder='选择角色'])[1]"
+    select_role: "(//li[@class='el-select-dropdown__item'])[4]"
+    next_step: '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[3]/div/div/div[3]/div/div[1]/button[2]'
+    inv_user_save_btn: '//*[@id="pane-accountManager"]/div/div[3]/div/div/div[3]/div/div[2]/button[3]'
+    invite_user_pop_closebtn: '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[3]/div/div/div[3]/div/div[3]/button'
+
+#5创建/修改用户
+- Locator_Create/Edit_user:
+    accountmanage: '//*[@id="app"]/div/div[2]/div[2]/div[2]/div[1]/div/ul/li[3]/ul/div[3]/a/li'
+    user_create: '//*[@id="pane-accountManager"]/div/div[1]/form/div[3]/button[2]'
+    displayname: '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[2]/div[1]/div/div/div/input'
+    full_name: '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[1]/div/div/input'
+    SIS_ID: '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[2]/div[2]/div/div/div/input'
+    create_mail: '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[3]/div/div[2]/form/div[3]/div/div[1]/input'
+    edit_mail: '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[3]/div/div/input'
+    cre/edit_mail: '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[3]/div/div/input'
+    new_pw: '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[4]/div/div/input'
+    role: "(//input[@placeholder='选择角色'])[1]"
+    select_role: "(//li[@class='el-select-dropdown__item'])[4]"
+    otherthing: '//*[@id="pane-accountManager"]/div/div[3]'
+    create_btn: '//*[@id="pane-accountManager"]/div/div[3]/div/div[3]/div/button[2]'
+    user_create_other: "(//tbody)[1]"
+    post_mail: '//*[@id="app"]/div/div[3]/section/div/div[2]/div[2]'
+    edit_user: '/html/body/ul/li[1]'
+    edit_post_mail: '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/label/span[1]'
+    edit_save_btn: '//*[@id="pane-accountManager"]/div/div[3]/div/div[3]/div/button[2]'
+    edit_mailbtn: '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[3]/div/span'
+
+
+#6修改密码
+- Locator_Edit_pw:
+    edit_pw: '/html/body/ul/li[2]'
+    new_pw: '//*[@id="pane-accountManager"]/div/div[4]/div/div[2]/div/div[2]/form/div[1]/div/div[1]/input'
+    confirm_pw: '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[4]/div/div[2]/div/div[2]/form/div[2]/div/div[1]/input'
+    save_btn: '//*[@id="pane-accountManager"]/div/div[4]/div/div[3]/div/div[2]/button[2]'
+    edit_pw_sufpop_closebtn: '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[4]/div/div[3]/div/div[3]/button'
+
+#7停用账号
+- Locator_disable_account:
+    dis_account: '/html/body/ul/li[3]'
+    post_mail: '/html/body/div[3]/div/div[2]/div/div[2]/div[3]/div/label/span[1]'
+    save_btn: '/html/body/div[3]/div/div[3]/div/button[2]'
+
+#8激活账号
+- Locator_active_account:
+    act_account: '/html/body/ul/li[3]'
+    post_mail: '/html/body/div[3]/div/div[2]/div/div[2]/div[3]/div/label/span[1]'
+    save_btn: '/html/body/div[3]/div/div[3]/div/button[2]'
+
+#   9删除用户定位
+- Locator_Delete_Createuser:
+    delete: "/html/body/ul/li[4]"
+    del_mail: '/html/body/div[3]/div/div[2]/div/div[2]/div[3]/div[1]/label/span[1]/span'
+    del_input: '/html/body/div[3]/div/div[2]/div/div[2]/div[3]/div[2]/div/div[2]/input'
+    del_btn: "//div[@class='el-dialog__wrapper actionConfirmDialog']//button[2]//span[1]"
+
+#10
+- UsermanageResultPage:
+    user_create_other: '//*[@id="pane-accountManager"]/div/div[2]/div[1]/div[3]/table/tbody'
+    create_acount_page:  '/html/body/div[2]'
+    edit_acount_page: '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[3]/div/div[1]'
+    delete_acount_page: '/html/body/div[3]/div/div[2]'
+    edit_pw_suf_pop: '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[4]/div/div[2]/div/div[2]/div'
+    account_state: '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[2]/div[1]/div[3]/table/tbody/tr[1]'
+    invite_user_pop: '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[3]/div/div/div[2]/div/div[2]/div/div/div[2]/p'
+

@@ -2,13 +2,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from new_admin_demo.pages.base_action import BaseAction
+import yaml
+
 
 # 登录页面信息定位
 class Locator_Login(BaseAction):
-    login_btn = By.XPATH, '/html/body/div[1]/div/div/header/nav/div/button'
-    login_name = By.ID, 'userLoginName'
-    login_pw = By.ID, "userPassword"
-    login_submit = By.XPATH, '//*[@id="loginForm"]/button'
+    Elelocator_login= yaml.safe_load(open('../datafile/Ele_locator/usermanage_locator.yaml',encoding='utf-8'))
+    login_btn =  By.XPATH,Elelocator_login[0]['Locator_Login']['login_btn']
+    login_name = By.ID, Elelocator_login[0]['Locator_Login']['login_name']
+    login_pw = By.ID, Elelocator_login[0]['Locator_Login']['login_pw']
+    login_submit = By.XPATH, Elelocator_login[0]['Locator_Login']['login_submit']
 
     # 点击方法
     def click_btn_login_btn(self):
@@ -24,34 +27,101 @@ class Locator_Login(BaseAction):
     def enter_keyword_login_pw(self, text):
         self.input_things(self.login_pw, text)
 
-# 退出登录的页面定位：
-class Locator_Logout_user(BaseAction):
-    mine=By.XPATH,'/html/body/div[1]/div/div/header/nav/div/div[2]/div'
-    logout=By.XPATH,'/html/body/div[1]/div/div/header/nav/div/div[2]/ul/li[2]'
 
-    # 点击事件
-    def click_mine(self):
-        self.click_i(self.mine)
-
-    def click_logout(self):
-        self.click_i(self.logout)
 # 用户
+# 邀请用户
+class Locator_invite_user(BaseAction):
+    Elelocator_invite_user = yaml.safe_load(open('../datafile/Ele_locator/usermanage_locator.yaml', encoding='utf-8'))
+    user = By.XPATH, Elelocator_invite_user[1]['User']
+    inv_user_btn=By.XPATH, Elelocator_invite_user[4]['Locator_invite_user']['inv_user_btn']
+    mail_adress=By.XPATH, Elelocator_invite_user[4]['Locator_invite_user']['mail_adress']
+    regist_to=By.XPATH, Elelocator_invite_user[4]['Locator_invite_user']['regist_to']
+    select_regist_to=By.XPATH, Elelocator_invite_user[4]['Locator_invite_user']['select_regist_to']
+    role=By.XPATH, Elelocator_invite_user[4]['Locator_invite_user']['role']
+    select_role=By.XPATH, Elelocator_invite_user[4]['Locator_invite_user']['select_role']
+    next_step=By.XPATH, Elelocator_invite_user[4]['Locator_invite_user']['next_step']
+    inv_user_save_btn=By.XPATH, Elelocator_invite_user[4]['Locator_invite_user']['inv_user_save_btn']
+    invite_user_pop_closebtn=By.XPATH, Elelocator_invite_user[4]['Locator_invite_user']['invite_user_pop_closebtn']
+
+# 输入方法
+    def enter_keyword_mail_adress(self,text):
+        self.input_things(self.mail_adress,text)
+
+# 点击方法
+    def click_invite_user_pop_closebtn(self):
+        self.click_i(self.invite_user_pop_closebtn)
+
+    def click_user(self):
+        self.click_i(self.user)
+
+    def click_inv_user(self):
+        self.click_i(self.inv_user_btn)
+
+    def click_regist_to(self):
+        self.click_i(self.regist_to)
+
+    def click_select_regist_to(self):
+        self.click_i(self.select_regist_to)
+
+    def click_role(self):
+        self.click_i(self.role)
+
+    def click_select_role(self):
+        self.click_i(self.select_role)
+
+    def click_next_step(self):
+        self.click_i(self.next_step)
+
+    def click_inv_user_save_btn(self):
+        self.click_i(self.inv_user_save_btn)
+
+# 删除邀请用户
+class Locator_delete_invite_user(BaseAction):
+    Elelocator_delete_invite_user= yaml.safe_load(open('../datafile/Ele_locator/usermanage_locator.yaml', encoding='utf-8'))
+    user = By.XPATH, Elelocator_delete_invite_user[1]['User']
+    more_usermanage_option = By.XPATH, Elelocator_delete_invite_user[2]['Usermanage_moreoption']
+    delete_btn=By.XPATH, Elelocator_delete_invite_user[9]['Locator_Delete_Createuser']['delete']
+    del_mail = By.XPATH, Elelocator_delete_invite_user[9]['Locator_Delete_Createuser']['del_mail']
+    del_input = By.XPATH, Elelocator_delete_invite_user[9]['Locator_Delete_Createuser']['del_input']
+    del_btn = By.XPATH, Elelocator_delete_invite_user[9]['Locator_Delete_Createuser']['del_btn']
+
+
+    # 输入方法
+    def enter_keyword_del_input(self, text):
+        self.input_things(self.del_input, text)
+
+    # 点击方法
+    def click_user(self):
+        self.click_i(self.user)
+
+    def click_btn_more_usermanage_option(self):
+        self.click_i(self.more_usermanage_option)
+
+    def click_btn_delete(self):
+        self.click_i(self.delete_btn)
+
+    def click_btn_del_mail(self):
+        self.click_i(self.del_mail)
+
+    def click_del_btn(self):
+        self.click_i(self.del_btn)
+
 # 创建账号定位
 class Locator_Create_user(BaseAction):
-    accountmanage = By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[2]/div[1]/div/ul/li[3]/ul/div[3]/a/li'
-    user_create = By.XPATH, '//*[@id="pane-accountManager"]/div/div[1]/form/div[3]/button[2]'
-    displayname = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[2]/div[1]/div/div/div/input'
-    full_name = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[1]/div/div/input'
-    SIS_ID = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[2]/div[2]/div/div/div/input'
-    mail = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[3]/div/div/input'
-    new_pw = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[4]/div/div/input'
-    role = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[6]/div/div/div[2]/span'
-    # select_role = By.XPATH,"(//li[@class='el-select-dropdown__item'])[4]"
-    select_role = By.XPATH,"/html/body/div[3]/div[1]/div[1]/ul/li[1]"
-    otherthing = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]'
-    create_btn = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[3]/div/button[2]'
-    user_create_other = By.XPATH, '//*[@id="app"]/div/div[3]/section/div/div[2]/div[2]'
-    post_mail = By.XPATH, '//*[@id="app"]/div/div[3]/section/div/div[2]/div[2]'
+    Elelocator_create_user=yaml.safe_load(open('../datafile/Ele_locator/usermanage_locator.yaml',encoding='utf-8'))
+    accountmanage = By.XPATH,Elelocator_create_user[5]['Locator_Create/Edit_user']['accountmanage']
+    user_create = By.XPATH, Elelocator_create_user[5]['Locator_Create/Edit_user']['user_create']
+    displayname = By.XPATH, Elelocator_create_user[5]['Locator_Create/Edit_user']['displayname']
+    full_name = By.XPATH, Elelocator_create_user[5]['Locator_Create/Edit_user']['full_name']
+    SIS_ID = By.XPATH, Elelocator_create_user[5]['Locator_Create/Edit_user']['SIS_ID']
+    mail = By.XPATH, Elelocator_create_user[5]['Locator_Create/Edit_user']['create_mail']
+    new_pw = By.XPATH, Elelocator_create_user[5]['Locator_Create/Edit_user']['new_pw']
+    role = By.XPATH, Elelocator_create_user[5]['Locator_Create/Edit_user']['role']
+    select_role = By.XPATH,Elelocator_create_user[5]['Locator_Create/Edit_user']['select_role']
+    otherthing = By.XPATH, Elelocator_create_user[5]['Locator_Create/Edit_user']['otherthing']
+    create_btn = By.XPATH, Elelocator_create_user[5]['Locator_Create/Edit_user']['create_btn']
+    user_create_other = By.XPATH, Elelocator_create_user[5]['Locator_Create/Edit_user']['user_create_other']
+    post_mail = By.XPATH, Elelocator_create_user[5]['Locator_Create/Edit_user']['post_mail']
 
     # 输入方法
     def enter_keyword_create_full_name(self, text):
@@ -90,18 +160,19 @@ class Locator_Create_user(BaseAction):
 
 # 编辑账号定位
 class Locator_Edit_Createuser(BaseAction):
-    user = By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[2]/div[1]/div/ul/li[3]/ul/div[3]/a/li'
-    user_create = By.XPATH, '//*[@id="pane-accountManager"]/div/div[1]/form/div[3]/button[2]'
-    full_name = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[1]/div/div/input'
-    displayname = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[2]/div[1]/div/div/div/input'
-    SIS_ID = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[2]/div[2]/div/div/div/input'
-    mail = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[3]/div/div/input'
-    more_usermanage_option = By.XPATH, '/html/body/div/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[6]/div/div/div'
-    edit_user = By.XPATH, '/html/body/ul/li[1]'
-    edit_mail = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/div[3]/div/span'
-    edit_post_mail = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[2]/form/label/span[1]'
-    edit_save_btn = By.XPATH, '//*[@id="pane-accountManager"]/div/div[3]/div/div[3]/div/button[2]'
-    post_mail = By.XPATH, '//*[@id="app"]/div/div[3]/section/div/div[2]/div[2]'
+    Elelocator_Edit_Createuser=yaml.safe_load(open('../datafile/Ele_locator/usermanage_locator.yaml',encoding='utf-8'))
+    user=By.XPATH,Elelocator_Edit_Createuser[1]['User']
+    full_name = By.XPATH, Elelocator_Edit_Createuser[5]['Locator_Create/Edit_user']['full_name']
+    displayname = By.XPATH, Elelocator_Edit_Createuser[5]['Locator_Create/Edit_user']['displayname']
+    SIS_ID = By.XPATH, Elelocator_Edit_Createuser[5]['Locator_Create/Edit_user']['SIS_ID']
+    mail = By.XPATH, Elelocator_Edit_Createuser[5]['Locator_Create/Edit_user']['edit_mail']
+    more_usermanage_option = By.XPATH, Elelocator_Edit_Createuser[2]['Usermanage_moreoption']
+    edit_user = By.XPATH, Elelocator_Edit_Createuser[5]['Locator_Create/Edit_user']['edit_user']
+    edit_mailbtn = By.XPATH, Elelocator_Edit_Createuser[5]['Locator_Create/Edit_user']['edit_mailbtn']
+    edit_post_mail = By.XPATH, Elelocator_Edit_Createuser[5]['Locator_Create/Edit_user']['edit_post_mail']
+    edit_save_btn = By.XPATH, Elelocator_Edit_Createuser[5]['Locator_Create/Edit_user']['edit_save_btn']
+    post_mail = By.XPATH, Elelocator_Edit_Createuser[5]['Locator_Create/Edit_user']['post_mail']
+
     # 输入方法
     def enter_keyword_fullname(self,text):
         self.input_things(self.full_name,text)
@@ -126,7 +197,7 @@ class Locator_Edit_Createuser(BaseAction):
         self.click_i(self.edit_user)
 
     def click_btn_edit_mail(self):
-        self.click_i(self.edit_mail)
+        self.click_i(self.edit_mailbtn)
 
     def click_btnpost_mail(self):
         self.click_i(self.edit_post_mail)
@@ -136,14 +207,14 @@ class Locator_Edit_Createuser(BaseAction):
 
 #修改密码
 class Locator_Edit_Pw(BaseAction):
-    user = By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[2]/div[1]/div/ul/li[3]/ul/div[3]/a/li'
-    more_usermanage_option = By.XPATH, '/html/body/div/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[6]/div/div/div'
-    edit_pw=By.XPATH,'/html/body/ul/li[2]'
-    new_pw=By.XPATH,'//*[@id="pane-accountManager"]/div/div[4]/div/div[2]/div/div[2]/form/div[1]/div/div[1]/input'
-    confirm_pw=By.XPATH,'//*[@id="pane-accountManager"]/div/div[4]/div/div[2]/div/div[2]/form/div[2]/div/div/input'
-    save_btn=By.XPATH,'//*[@id="pane-accountManager"]/div/div[4]/div/div[3]/div/div[2]/button[2]'
-    edit_pw_suf_pop_closebtn=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[4]/div/div[3]/div/div[3]/button'
-
+    EleLocator_Edit_Pw = yaml.safe_load(open('../datafile/Ele_locator/usermanage_locator.yaml', encoding='utf-8'))
+    user=By.XPATH, EleLocator_Edit_Pw[1]['User']
+    more_usermanage_option = By.XPATH, EleLocator_Edit_Pw[2]['Usermanage_moreoption']
+    edit_pw=By.XPATH, EleLocator_Edit_Pw[6]['Locator_Edit_pw']['edit_pw']
+    new_pw=By.XPATH, EleLocator_Edit_Pw[6]['Locator_Edit_pw']['new_pw']
+    confirm_pw=By.XPATH, EleLocator_Edit_Pw[6]['Locator_Edit_pw']['confirm_pw']
+    save_btn=By.XPATH, EleLocator_Edit_Pw[6]['Locator_Edit_pw']['save_btn']
+    edit_pw_suf_pop_closebtn=By.XPATH, EleLocator_Edit_Pw[6]['Locator_Edit_pw']['edit_pw_sufpop_closebtn']
 # 输入方法
     def enter_keyword_new_pw(self,text):
         self.input_things(self.new_pw,text)
@@ -152,11 +223,11 @@ class Locator_Edit_Pw(BaseAction):
         self.input_things(self.confirm_pw,text)
 
 # 点击方法
-    def click_edit_pw_suf_pop(self):
-        self.click_i(self.edit_pw_suf_pop_closebtn)
-
     def click_user(self):
         self.click_i(self.user)
+
+    def click_edit_pw_suf_pop(self):
+        self.click_i(self.edit_pw_suf_pop_closebtn)
 
     def click_btn_more_usermanage_option(self):
         self.click_i(self.more_usermanage_option)
@@ -169,13 +240,13 @@ class Locator_Edit_Pw(BaseAction):
 
 # 停用账号
 class Locator_disable_account(BaseAction):
-    user = By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[2]/div[1]/div/ul/li[3]/ul/div[3]/a/li'
-    more_usermanage_option = By.XPATH, '/html/body/div/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[6]/div/div/div'
-    dis_account = By.XPATH,'/html/body/ul/li[3]'
-    post_mail=By.XPATH,'/html/body/div[3]/div/div[2]/div/div[2]/div[3]/div/label/span[1]'
-    save_btn=By.XPATH,'/html/body/div[3]/div/div[3]/div/button[2]'
+    EleLocator_disable_account = yaml.safe_load(open('../datafile/Ele_locator/usermanage_locator.yaml', encoding='utf-8'))
+    user=By.XPATH, EleLocator_disable_account[1]['User']
+    more_usermanage_option = By.XPATH, EleLocator_disable_account[2]['Usermanage_moreoption']
+    dis_account = By.XPATH, EleLocator_disable_account[7]['Locator_disable_account']['dis_account']
+    post_mail=By.XPATH, EleLocator_disable_account[7]['Locator_disable_account']['post_mail']
+    save_btn=By.XPATH, EleLocator_disable_account[7]['Locator_disable_account']['save_btn']
 
-    # 点击方法
     def click_user(self):
         self.click_i(self.user)
 
@@ -191,15 +262,15 @@ class Locator_disable_account(BaseAction):
     def click_save_btn(self):
         self.click_i(self.save_btn)
 
-
-
 # 激活账号
 class Locator_active_account(BaseAction):
-    user = By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[2]/div[1]/div/ul/li[3]/ul/div[3]/a/li'
-    more_usermanage_option = By.XPATH, '/html/body/div/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[6]/div/div/div'
-    act_account=By.XPATH,'/html/body/ul/li[3]'
-    post_mail = By.XPATH, '/html/body/div[3]/div/div[2]/div/div[2]/div[3]/div/label/span[1]'
-    save_btn = By.XPATH, '/html/body/div[3]/div/div[3]/div/button[2]'
+    EleLocator_active_account = yaml.safe_load(open('../datafile/Ele_locator/usermanage_locator.yaml', encoding='utf-8'))
+    user = By.XPATH, EleLocator_active_account[1]['User']
+    more_usermanage_option = By.XPATH, EleLocator_active_account[2]['Usermanage_moreoption']
+    act_account=By.XPATH, EleLocator_active_account[8]['Locator_active_account']['act_account']
+    post_mail = By.XPATH, EleLocator_active_account[8]['Locator_active_account']['post_mail']
+    save_btn = By.XPATH, EleLocator_active_account[8]['Locator_active_account']['save_btn']
+
 # 点击方法
     def click_user(self):
         self.click_i(self.user)
@@ -218,22 +289,19 @@ class Locator_active_account(BaseAction):
 
 # 删除用户定位
 class Locator_Delete_Createuser(BaseAction):
-    user = By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[2]/div[1]/div/ul/li[3]/ul/div[3]/a/li'
-    account_manage = By.XPATH, '/html/body/div[1]/div/div[3]/section/div/div[2]/div[1]/div/div/div/div[2]'
-    more_usermanage_option = By.XPATH, '/html/body/div/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[6]/div/div'
-    delete = By.XPATH, "/html/body/ul/li[4]"
-    del_mail = By.XPATH, '/html/body/div[3]/div/div[2]/div/div[2]/div[3]/div[1]/label/span[1]/span'
-    del_input = By.XPATH, '/html/body/div[3]/div/div[2]/div/div[2]/div[3]/div[2]/div/div[2]/input'
-    del_btn = By.XPATH, "//div[@class='el-dialog__wrapper actionConfirmDialog']//button[2]//span[1]"
+    EleLocator_Delete_Createuser = yaml.safe_load(open('../datafile/Ele_locator/usermanage_locator.yaml', encoding='utf-8'))
+    account_manage = By.XPATH, EleLocator_Delete_Createuser[3]['account_manage']
+    more_usermanage_option = By.XPATH, EleLocator_Delete_Createuser[2]['Usermanage_moreoption']
+    delete = By.XPATH, EleLocator_Delete_Createuser[9]['Locator_Delete_Createuser']['delete']
+    del_mail = By.XPATH, EleLocator_Delete_Createuser[9]['Locator_Delete_Createuser']['del_mail']
+    del_input = By.XPATH, EleLocator_Delete_Createuser[9]['Locator_Delete_Createuser']['del_input']
+    del_btn = By.XPATH, EleLocator_Delete_Createuser[9]['Locator_Delete_Createuser']['del_btn']
 
     # 输入方法
     def enter_keyword_del_input(self, text):
         self.input_things(self.del_input, text)
 
     # 点击方法
-    def click_user(self):
-        self.click_i(self.user)
-
     def click_account_manage(self):
         self.click_i(self.account_manage)
 
@@ -249,97 +317,23 @@ class Locator_Delete_Createuser(BaseAction):
     def click_del_btn(self):
         self.click_i(self.del_btn)
 
-# 邀请用户
-class Locator_invite_user(BaseAction):
-    user = By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[2]/div[1]/div/ul/li[3]/ul/div[3]/a/li'
-    inv_user_btn=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[1]/form/div[3]/button[1]'
-    mail_adress=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[3]/div/div/div[2]/div/div[1]/form/div[1]/div/div/textarea'
-    regist_to=By.XPATH,'//*[@id="pane-accountManager"]/div/div[3]/div/div/div[2]/div/div[1]/form/div[2]/div/div/div[1]'
-    select_regist_to=By.XPATH,'/html/body/div[3]/div[1]/div/div[1]/ul/li[5]/label'
-    role=By.XPATH,'//*[@id="pane-accountManager"]/div/div[3]/div/div/div[2]/div/div[1]/form/div[3]/div/div[1]/div[2]/span'
-    select_role=By.XPATH,"(//li[@class='el-select-dropdown__item'])[4]"
-    next_step=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[3]/div/div/div[3]/div/div[1]/button[2]'
-    inv_user_save_btn=By.XPATH,'//*[@id="pane-accountManager"]/div/div[3]/div/div/div[3]/div/div[2]/button[3]'
-    invite_user_pop_closebtn=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[3]/div/div/div[3]/div/div[3]/button'
-
-# 输入方法
-    def enter_keyword_mail_adress(self,text):
-        self.input_things(self.mail_adress,text)
-
-# 点击方法
-
-    def click_invite_user_pop_closebtn(self):
-        self.click_i(self.invite_user_pop_closebtn)
-
-    def click_user(self):
-        self.click_i(self.user)
-
-    def click_inv_user(self):
-        self.click_i(self.inv_user_btn)
-
-    def click_regist_to(self):
-        self.click_i(self.regist_to)
-
-    def click_select_regist_to(self):
-        self.click_i(self.select_regist_to)
-
-    def click_role(self):
-        self.click_i(self.role)
-
-    def click_select_role(self):
-        self.click_i(self.select_role)
-
-    def click_next_step(self):
-        self.click_i(self.next_step)
-
-    def click_inv_user_save_btn(self):
-        self.click_i(self.inv_user_save_btn)
-
-# 删除邀请用户
-class Locator_delete_invite_user(BaseAction):
-    user = By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[2]/div[1]/div/ul/li[3]/ul/div[3]/a/li'
-    more_usermanage_option = By.XPATH, '//*[@id="pane-accountManager"]/div/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[6]/div/div'
-
-    delete_btn=By.XPATH,'/html/body/ul/li[4]'
-    del_mail = By.XPATH, '/html/body/div[3]/div/div[2]/div/div[2]/div[3]/div[1]/label/span[1]/span'
-    del_input = By.XPATH, '/html/body/div[3]/div/div[2]/div/div[2]/div[3]/div[2]/div/div[2]/input'
-    del_btn = By.XPATH, "//div[@class='el-dialog__wrapper actionConfirmDialog']//button[2]//span[1]"
-
-
-    # 输入方法
-    def enter_keyword_del_input(self, text):
-        self.input_things(self.del_input, text)
-
-    # 点击方法
-    def click_user(self):
-        self.click_i(self.user)
-
-    def click_btn_more_usermanage_option(self):
-        self.click_i(self.more_usermanage_option)
-
-    def click_btn_delete(self):
-        self.click_i(self.delete_btn)
-
-    def click_btn_del_mail(self):
-        self.click_i(self.del_mail)
-
-    def click_del_btn(self):
-        self.click_i(self.del_btn)
 
 # 注册账号
 class Locator_reg_to_account(BaseAction):
-    user = By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[2]/div[1]/div/ul/li[3]/ul/div[3]/a/li'
-    registmanage = By.XPATH,'/html/body/div/div/div[3]/section/div/div[2]/div[1]/div/div/div/div[3]'
-    regto_account = By.XPATH,'//*[@id="pane-registerManager"]/div/div[1]/form/div[4]/button'
-    bymail_list=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div[2]/div/div[1]/form/div[2]/div/div[1]/textarea'
-    regist_to = By.XPATH, '//*[@id="pane-registerManager"]/div/div[3]/div/div/div[2]/div/div[1]/form/div[3]/div/div/div[1]/input'
-    select_regist_to = By.XPATH, '/html/body/div[3]/div[1]/div/div[1]/ul/li[5]/label/span[1]/span'
-    role=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div[2]/div/div[1]/form/div[4]/div/div/div[2]/input'
-    select_role1 = By.XPATH, "/html/body/div[4]/div[1]/div[1]/ul/li[1]"
-    select_role2=By.XPATH,"/html/body/div[4]/div[1]/div[1]/ul/li[6]"
-    next_btn=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div[3]/div/div[1]/button[2]'
-    regto_account_save_btn = By.XPATH, '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div[3]/div/div[2]/button[3]'
-    regto_account_pop_closebtn=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div[3]/div/div[3]/button'
+    EleLocator_reg_to_account = yaml.safe_load(open('../datafile/Ele_locator/userregister_locator.yaml',encoding='utf-8'))
+    user = By.XPATH, EleLocator_reg_to_account[1]['User']
+    registmanage = By.XPATH,EleLocator_reg_to_account[2]['registmanage']
+    regto_account = By.XPATH, EleLocator_reg_to_account[4]['Locator_reg_to_account']['regto_account']
+    bymail_list=By.XPATH,EleLocator_reg_to_account[4]['Locator_reg_to_account']['bymail_account']
+    regist_to = By.XPATH, "(//input[@placeholder='请选择'])[2]"
+    select_regist_to = By.XPATH, EleLocator_reg_to_account[4]['Locator_reg_to_account']['select_regist_to']
+    role=By.XPATH,EleLocator_reg_to_account[3]['role']
+    select_role1 = By.XPATH, EleLocator_reg_to_account[4]['Locator_reg_to_account']['select_role1']
+    select_role2=By.XPATH,EleLocator_reg_to_account[4]['Locator_reg_to_account']['select_role2']
+    next_btn=By.XPATH,EleLocator_reg_to_account[4]['Locator_reg_to_account']['next_btn']
+    regto_account_save_btn = By.XPATH, EleLocator_reg_to_account[4]['Locator_reg_to_account']['regto_account_save_btn']
+    regto_account_pop_closebtn=By.XPATH,EleLocator_reg_to_account[4]['Locator_reg_to_account']['regto_account_pop_closebtn']
+
 
 #     输入方法
     def enter_keyword_bymail_list(self,text):
@@ -381,15 +375,21 @@ class Locator_reg_to_account(BaseAction):
 
 # 编辑注册账号
 class Locator_edit_reg_to_account(BaseAction):
-    user = By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[2]/div[1]/div/ul/li[3]/ul/div[3]/a/li'
-    registmanage = By.XPATH, '/html/body/div/div/div[3]/section/div/div[2]/div[1]/div/div/div/div[3]'
-    change_org=By.XPATH,'//*[@id="pane-registerManager"]/div/div[1]/form/div[2]/div/div/div[1]/input'
-    select_change_org=By.XPATH,'/html/body/div[2]/div[1]/div[1]/div[1]/ul/li[5]/label/span[1]/span'
-    more_option=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[2]/div[1]/div[3]/table/tbody/tr[9]/td[5]/div/div/div'
-    edit_regto_account=By.XPATH,'/html/body/ul/li[1]'
-    close_role=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[4]/div/div[2]/div/div[2]/div/form/div[2]/div/div/div[1]/span/span[1]/i'
-    edit_save_btn=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[4]/div/div[3]/div/div[2]/button[2]'
-    edit_regto_account_pop_closebtn=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[4]/div/div[3]/div/div[3]/button'
+    Elelocator_edit_regto_account=yaml.safe_load(open('../datafile/Ele_locator/userregister_locator.yaml',encoding='utf-8'))
+    user = By.XPATH, Elelocator_edit_regto_account[1]['User']
+    registmanage = By.XPATH, Elelocator_edit_regto_account[2]['registmanage']
+    change_org=By.XPATH,Elelocator_edit_regto_account[6]['Locator_edit/remove_reg_to_account']['change_org']
+    select_change_org=By.XPATH,Elelocator_edit_regto_account[6]['Locator_edit/remove_reg_to_account']['select_change_org']
+    more_option=By.XPATH,Elelocator_edit_regto_account[6]['Locator_edit/remove_reg_to_account']['more_option']
+    edit_regto_account=By.XPATH,Elelocator_edit_regto_account[6]['Locator_edit/remove_reg_to_account']['edit_regto_account']
+    close_role=By.XPATH,Elelocator_edit_regto_account[6]['Locator_edit/remove_reg_to_account']['close_role']
+    edit_save_btn=By.XPATH,Elelocator_edit_regto_account[6]['Locator_edit/remove_reg_to_account']['edit_save_btn']
+    edit_regto_account_pop_closebtn=By.XPATH,Elelocator_edit_regto_account[6]['Locator_edit/remove_reg_to_account']['edit_regto_account_pop_closebtn']
+    search_account=By.XPATH,Elelocator_edit_regto_account[6]['Locator_edit/remove_reg_to_account']['search_account']
+
+    # 输入方法
+    def enter_keyword_search_account(self, text):
+        self.input_things(self.search_account, text)
 
 # 点击方法
     def click_edit_regto_account_pop_closebtn(self):
@@ -419,14 +419,33 @@ class Locator_edit_reg_to_account(BaseAction):
     def click_edit_save_btn(self):
         self.click_i(self.edit_save_btn)
 
+
 # 移除注册账号
 class Locator_remove_regto_account(BaseAction):
-    more_option = By.XPATH, '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[2]/div[1]/div[3]/table/tbody/tr[9]/td[5]/div/div/div'
-    remove_regto_account=By.XPATH,'/html/body/ul/li[2]'
-    post_mail=By.XPATH,'/html/body/div[4]/div/div[2]/div/div[2]/div[3]/div/label/span[1]/span'
-    remove_save_btn=By.XPATH,'/html/body/div[4]/div/div[3]/div/button[2]'
+    Elelocator_remove_regto_account = yaml.safe_load(open('../datafile/Ele_locator/userregister_locator.yaml', encoding='utf-8'))
+    user = By.XPATH, Elelocator_remove_regto_account[1]['User']
+    registmanage = By.XPATH, Elelocator_remove_regto_account[2]['registmanage']
+    change_org= By.XPATH,Elelocator_remove_regto_account[6]['Locator_edit/remove_reg_to_account']['change_org']
+    select_change_org= Elelocator_remove_regto_account[6]['Locator_edit/remove_reg_to_account']['select_change_org']
+    more_option = By.XPATH,Elelocator_remove_regto_account[6]['Locator_edit/remove_reg_to_account']['more_option']
+    remove_regto_account=By.XPATH,Elelocator_remove_regto_account[6]['Locator_edit/remove_reg_to_account']['remove_regto_account']
+    post_mail=By.XPATH,Elelocator_remove_regto_account[6]['Locator_edit/remove_reg_to_account']['post_mail']
+    remove_save_btn=By.XPATH,Elelocator_remove_regto_account[6]['Locator_edit/remove_reg_to_account']['remove_save_btn']
+    search_account = By.XPATH, Elelocator_remove_regto_account[6]['Locator_edit/remove_reg_to_account']['search_account']
 
     # 点击方法
+    def click_user(self):
+        self.click_i(self.user)
+
+    def click_registmanage(self):
+        self.click_i(self.registmanage)
+
+    def click_change_org(self):
+        self.click_i(self.change_org)
+
+    def click_select_change_org(self):
+        self.click_i(self.select_change_org)
+
     def click_more_option(self):
         self.click_i(self.more_option)
 
@@ -439,27 +458,41 @@ class Locator_remove_regto_account(BaseAction):
     def click_remove_save_btn(self):
         self.click_i(self.remove_save_btn)
 
+ # 输入方法
+    def enter_keyword_search_account(self,text):
+        self.input_things(self.search_account,text)
+
+
+
+
 #  通过账号注册
 class Locator_regto_byaccount(BaseAction):
-    user = By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[2]/div[1]/div/ul/li[3]/ul/div[3]/a/li'
-    registmanage = By.XPATH, '/html/body/div/div/div[3]/section/div/div[2]/div[1]/div/div/div/div[3]'
-    regto_account = By.XPATH, '//*[@id="pane-registerManager"]/div/div[1]/form/div[4]/button'
-    by_account=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div[2]/div/div[1]/form/div[1]/div/div/label[2]/span[1]/span'
-    exist_account=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div[2]/div/div[1]/form/span'
-    search_user=By.XPATH,"/html/body/div[4]/div/div/section/div[1]/div[1]/input"
-    choose_user=By.XPATH,'/html/body/div[4]/div/div/section/div[2]/div[1]/div/div[1]/div/label/span[1]/span'
-    confirm_btn=By.XPATH,'/html/body/div[4]/div/div/section/div[3]/div[2]/button[2]'
-    role = By.XPATH, '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div[2]/div/div[1]/form/div[4]/div/div/div[2]/input'
-    select_role1 = By.XPATH, "/html/body/div[4]/div[1]/div[1]/ul/li[3]"
-    select_role2 = By.XPATH, "/html/body/div[4]/div[1]/div[1]/ul/li[6]"
-    next_btn = By.XPATH, '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div[3]/div/div[1]/button[2]'
-    regto_account_save_btn = By.XPATH, '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div[3]/div/div[2]/button[3]'
-    regto_account_pop_closebtn = By.XPATH, '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div[3]/div/div[3]/button'
+    Elelocator_regto_byaccount = yaml.safe_load(open('../datafile/Ele_locator/userregister_locator.yaml', encoding='utf-8'))
+    user = By.XPATH, Elelocator_regto_byaccount[1]['User']
+    registmanage = By.XPATH, Elelocator_regto_byaccount[2]['registmanage']
+    regto_account = By.XPATH, Elelocator_regto_byaccount[5]['Locator_regto_byaccount']['regto_account']
+    by_account=By.XPATH,Elelocator_regto_byaccount[5]['Locator_regto_byaccount']['by_account']
+    exist_account=By.XPATH,Elelocator_regto_byaccount[5]['Locator_regto_byaccount']['exist_account']
+    search_user=By.XPATH,Elelocator_regto_byaccount[5]['Locator_regto_byaccount']['search_user']
+    confirm_sear_result=By.XPATH,Elelocator_regto_byaccount[5]['Locator_regto_byaccount']['confirm_sear_result']
+    choose_user=By.XPATH,Elelocator_regto_byaccount[5]['Locator_regto_byaccount']['choose_user']
+    confirm_btn=By.XPATH,Elelocator_regto_byaccount[5]['Locator_regto_byaccount']['confirm_btn']
+    role = By.XPATH,Elelocator_regto_byaccount[3]['role']
+    select_role1 = By.XPATH,Elelocator_regto_byaccount[5]['Locator_regto_byaccount']['select_role1']
+    select_role2 = By.XPATH, Elelocator_regto_byaccount[5]['Locator_regto_byaccount']['select_role2']
+    next_btn = By.XPATH,Elelocator_regto_byaccount[5]['Locator_regto_byaccount']['next_btn']
+    regto_account_save_btn = By.XPATH, Elelocator_regto_byaccount[5]['Locator_regto_byaccount']['regto_account_save_btn']
+    regto_account_pop_closebtn = By.XPATH, Elelocator_regto_byaccount[5]['Locator_regto_byaccount']['regto_account_pop_closebtn']
+
+
 #     输入方法
     def enter_keyword_search_user(self,text):
         self.input_things(self.search_user,text)
 
 #     点击方法
+    def click_confirm_sear_result(self):
+        self.click_i(self.confirm_sear_result)
+
     def click_regto_account_pop_closebtn(self):
         self.click_i(self.regto_account_pop_closebtn)
 
@@ -503,24 +536,24 @@ class Locator_regto_byaccount(BaseAction):
 class UsermanageResultPage(BaseAction):
     # 没什么属性
     # 方法: 返回要 验证文本
-    user_create_other = By.XPATH, '//*[@id="pane-accountManager"]/div/div[2]/div[1]/div[3]/table/tbody'
-    create_acount_page = By.XPATH, '/html/body/div[2]'
-    edit_acount_page=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[3]/div/div[1]'
-    delete_acount_page=By.XPATH,'/html/body/div[3]/div/div[2]'
-    edit_pw_suf_pop=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[4]/div/div[2]/div/div[2]/div'
-    account_state = By.XPATH, '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[2]/div[1]/div[3]/table/tbody/tr[1]'
-    invite_user_pop=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[3]/div/div/div[2]/div/div[2]/div/div/div[2]/p'
-    select_role = By.XPATH, "(//li[@class='el-select-dropdown__item'])[4]"
-    next_btn=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div[3]/div/div[1]/button[2]'
-    regto_account_pop=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[3]/div/div/div[2]/div/div[2]/div'
-    edit_regto_account_pop=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[4]/div/div[2]/div/div[2]/div'
-    remove_regto_acount=By.XPATH,'/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[2]/div/div[2]/div[1]'
+    Elelocator_userregistResultPage = yaml.safe_load(open('../datafile/Ele_locator/userregister_locator.yaml', encoding='utf-8'))
+    Elelocator_usermanageResult_Page=yaml.safe_load(open('../datafile/Ele_locator/usermanage_locator.yaml',encoding='utf-8'))
+    user_create_other = By.XPATH, Elelocator_usermanageResult_Page[10]['UsermanageResultPage']['user_create_other']
+    create_acount_page = By.XPATH, Elelocator_usermanageResult_Page[10]['UsermanageResultPage']['create_acount_page']
+    edit_acount_page=By.XPATH,Elelocator_usermanageResult_Page[10]['UsermanageResultPage']['edit_acount_page']
+    delete_acount_page=By.XPATH,Elelocator_usermanageResult_Page[10]['UsermanageResultPage']['delete_acount_page']
+    edit_pw_suf_pop=By.XPATH,Elelocator_usermanageResult_Page[10]['UsermanageResultPage']['edit_pw_suf_pop']
+    account_state = By.XPATH,Elelocator_usermanageResult_Page[10]['UsermanageResultPage']['account_state']
+    invite_user_pop=By.XPATH,Elelocator_usermanageResult_Page[10]['UsermanageResultPage']['invite_user_pop']
+    regto_account_pop=By.XPATH,Elelocator_userregistResultPage[7]['UserregistReusultPage']['regto_account_pop']
+    edit_regto_account_pop=By.XPATH,Elelocator_userregistResultPage[7]['UserregistReusultPage']['edit_regto_account_pop']
+    remove_regto_acount=By.XPATH,Elelocator_userregistResultPage[7]['UserregistReusultPage']['remove_regto_acount']
 
 
     # 账号管理验证页面
     def get_accountmanage(self):
-        WebDriverWait(self.driver, 10, 1).until(EC.presence_of_element_located(self.user_create_other))
-        return self.driver.find_element(*self.user_create_other).text
+        ele=self.driver.find_element(*self.user_create_other)
+        return ele.text
 
     # 成功修改密码窗口验证结果
     def get_edit_pw_suf_pop(self):

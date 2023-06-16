@@ -2,24 +2,27 @@ import os
 import time
 
 import yaml
-from selenium import webdriver
 import pytest
 from new_admin_demo.Utils.get_path import get_par_path
+from new_admin_demo.Utils.log import conf
 from new_admin_demo.Utils.read_yml import get_yaml_data
 from new_admin_demo.pages.page_newadmin import *
 import allure
+
 
 class TestClass_usermanage(object):
     @allure.step('从配置文件中读取登陆数据')
     @pytest.fixture()
     def login_data(self):
-        yaml_path=os.path.join(get_par_path(),"config/config.yaml")
-        test_data=get_yaml_data(yaml_path)
+        self.log=conf.logcon()
+        self.log.info(("read_config.yaml"))
+        yaml_path = os.path.join(get_par_path(), "config/user_manage_config.yaml")
+        test_data = get_yaml_data(yaml_path)
         return test_data
 
     @allure.feature('登录功能')
     @allure.step("使用管理员身份登录")
-    def test_login(self,driver,login_data):
+    def test_login(self, driver, login_data):
         driver.get(login_data['baseurl'])
         driver.maximize_window()
         driver.implicitly_wait(30)
@@ -30,19 +33,18 @@ class TestClass_usermanage(object):
         login_page.enter_keyword_login_pw(login_data['login_pw'])
         login_page.click_btn_login_submit()
 
-
     # 用户模块
     # # #1. 账号管理
     # 邀请用户
     @allure.story('账号管理')
     @allure.title('邀请用户')
-    @pytest.mark.parametrize("get_data",yaml.safe_load(open('../datafile/test__invite_user.yaml',encoding='utf-8')))
+    @pytest.mark.parametrize("get_data", yaml.safe_load(open('../datafile/test_datatext/test__invite_user.yaml', encoding='utf-8')))
     # @pytest.mark.parametrize("keyword",['1921507475@qq.com,12345678'])
     def test_invite_user(self,driver,get_data):
         keyword=get_data["case"]
         input=keyword['keyword']
-        # with allure.step('初始化邀请用户页'):
-        Invite_user=Locator_invite_user(driver)
+        with allure.step('初始化邀请用户页'):
+            Invite_user=Locator_invite_user(driver)
         Invite_user.click_user()
         Invite_user.click_inv_user()
         with allure.step('输入邮件地址'):
@@ -66,10 +68,11 @@ class TestClass_usermanage(object):
             result_page.save_picture(pic_name)
             allure.attach.file(pic_name,attachment_type=allure.attachment_type.PNG)
 
-    # # 删除账号
+
+    # # 删除账号*****
     @allure.story('账号管理')
     @allure.title('删除待激活的账号')
-    @pytest.mark.parametrize('get_data',yaml.safe_load(open('../datafile/test_delete_invite_user.yaml',encoding='utf-8')))
+    @pytest.mark.parametrize('get_data', yaml.safe_load(open('../datafile/test_datatext/test_delete_invite_user.yaml', encoding='utf-8')))
     # @pytest.mark.parametrize('keyword',['删除账号'])
     def test_delete_invite_user(self,driver,get_data):
         keyword = get_data["case"]
@@ -97,13 +100,14 @@ class TestClass_usermanage(object):
             result_page.save_picture(pic_name)
             allure.attach.file(pic_name,attachment_type=allure.attachment_type.PNG)
 
-    # 创建账号
+
+    # 创建账号*****
     @allure.story('账号管理')
     @allure.title("创建账号")
-    @pytest.mark.parametrize('get_data',yaml.safe_load(open('../datafile/test_create_user.yaml',encoding='utf-8')))
+    @pytest.mark.parametrize('get_data', yaml.safe_load(open('../datafile/test_datatext/test_create_user.yaml', encoding='utf-8')))
     # @pytest.mark.parametrize("fullname,displayname,SIS_ID,mail,new_pw",[('202322','202322','2023115','1921507475@qq.com','wenhua123')])
     def test_create_user(self,driver,get_data):
-        keyword=get_data['case']
+        keyword=get_data['case1']
         fullname=keyword['fullname']
         displayname=keyword['displayname']
         SIS_ID=keyword['SIS_ID']
@@ -121,7 +125,9 @@ class TestClass_usermanage(object):
             Create_user.enter_keywords_create_mail(mail)
             Create_user.enter_keyword_create_new_pw(new_pw)
         with allure.step('选择角色'):
+            time.sleep(2)
             Create_user.click_create_user_role()
+            time.sleep(2)
             Create_user.click_create_select_role()
         with allure.step('机构默认注册到：本机构'):
             Create_user.click_create_otherthing()
@@ -136,11 +142,13 @@ class TestClass_usermanage(object):
             allure.attach.file(pic_name, attachment_type=allure.attachment_type.PNG)
             assert '1921507475@qq.com' in result_page.get_accountmanage()
 
+
+
     # 编辑账号
     @allure.story('账号管理')
     @allure.title("编辑账号")
     # @pytest.mark.parametrize('fullname,displayname,SIS_ID,mail',[('202322','202322','202322','linghuidu15@163.com')])
-    @pytest.mark.parametrize('get_data',yaml.safe_load(open('../datafile/test_edit_user.yaml',encoding='utf-8')))
+    @pytest.mark.parametrize('get_data', yaml.safe_load(open('../datafile/test_datatext/test_edit_user.yaml', encoding='utf-8')))
     def test_edit_user(self,driver,get_data):
         keyword=get_data['case']
         fullname=keyword['fullname']
@@ -174,10 +182,11 @@ class TestClass_usermanage(object):
             allure.attach.file(pic_name, attachment_type=allure.attachment_type.PNG)
             assert 'linghuidu15@163.com' in result_page.get_accountmanage()
 
+
     # 修改密码
     @allure.story('账号管理')
     @allure.title("修改密码")
-    @pytest.mark.parametrize('get_data',yaml.safe_load(open('../datafile/test_edit_pw.yaml',encoding='utf-8')))
+    @pytest.mark.parametrize('get_data', yaml.safe_load(open('../datafile/test_datatext/test_edit_pw.yaml', encoding='utf-8')))
     # @pytest.mark.parametrize('new_pw,confirm_pw,expect_result',[('dulinghui123','dulinghui123','密码已修改')])
     def test_edit_pw(self,driver,get_data):
         keyword=get_data['case']
@@ -206,6 +215,7 @@ class TestClass_usermanage(object):
             allure.attach.file(pic_name, attachment_type=allure.attachment_type.PNG)
             assert '密码已修改' in resultpage.get_edit_pw_suf_pop()
 
+
     # 停用
     @allure.story('账号管理')
     @allure.title("停用账号")
@@ -233,6 +243,7 @@ class TestClass_usermanage(object):
             allure.attach.file(pic_name, attachment_type=allure.attachment_type.PNG)
             assert '已停用' in resultpage.act_dis_account_ele()
 
+
     # 激活
     @allure.story('账号管理')
     @allure.title("激活账号")
@@ -256,6 +267,7 @@ class TestClass_usermanage(object):
             resultpage.save_picture(pic_name)
             allure.attach.file(pic_name, attachment_type=allure.attachment_type.PNG)
             assert '激活' in resultpage.act_dis_account_ele()
+
 
 
 
