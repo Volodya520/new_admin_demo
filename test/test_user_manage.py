@@ -3,11 +3,10 @@ import os
 import time
 import pytest
 from new_admin_demo.Utils.get_path import get_par_path
-from new_admin_demo.Utils.log import conf
 from new_admin_demo.Utils.read_yml import get_yaml_data
 from new_admin_demo.pages.page_newadmin import *
 import allure
-
+# 1111
 
 logging.getLogger('vova')
 class TestClass_usermanage(object):
