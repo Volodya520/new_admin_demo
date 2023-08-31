@@ -9,6 +9,9 @@ import allure
 from new_admin_demo.pages.page_newadmin import *
 
 
+
+# sd反反复复反反复复付
+
 class Testcase_userregister(object):
     @allure.step('从配置文件中读取登陆数据')
     @pytest.fixture()
