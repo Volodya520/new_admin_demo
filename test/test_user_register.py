@@ -33,6 +33,7 @@ class Testcase_userregister(object):
         login_page.enter_keyword_login_pw(login_data['login_pw'])
         login_page.click_login_submit()
 
+
     @allure.story('账号管理')
     @allure.title("创建账号")
     @pytest.mark.parametrize('get_data', yaml.safe_load(open('../datafile/test_datatext/test_create_user2.yaml', encoding='utf-8')))
