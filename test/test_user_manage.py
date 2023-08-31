@@ -7,7 +7,7 @@ from new_admin_demo.Utils.log import conf
 from new_admin_demo.Utils.read_yml import get_yaml_data
 from new_admin_demo.pages.page_newadmin import *
 import allure
-
+# asdfadf
 
 logging.getLogger('vova')
 class TestClass_usermanage(object):
