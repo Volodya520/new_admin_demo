@@ -14,10 +14,10 @@ class Locator_Login(BaseAction):
     login_submit = By.XPATH, Elelocator_login[0]['Locator_Login']['login_submit']
 
     # 点击方法
-    def click_btn_login_btn(self):
+    def click_login_btn(self):
         self.click_i(self.login_btn)
 
-    def click_btn_login_submit(self):
+    def click_login_submit(self):
         self.click_i(self.login_submit)
 
     # 输入方法
@@ -386,6 +386,7 @@ class Locator_edit_reg_to_account(BaseAction):
     edit_save_btn=By.XPATH,Elelocator_edit_regto_account[6]['Locator_edit/remove_reg_to_account']['edit_save_btn']
     edit_regto_account_pop_closebtn=By.XPATH,Elelocator_edit_regto_account[6]['Locator_edit/remove_reg_to_account']['edit_regto_account_pop_closebtn']
     search_account=By.XPATH,Elelocator_edit_regto_account[6]['Locator_edit/remove_reg_to_account']['search_account']
+
 
     # 输入方法
     def enter_keyword_search_account(self, text):

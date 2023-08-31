@@ -1,3 +1,4 @@
+import logging
 import os.path
 import sys
 
@@ -20,4 +21,16 @@ def driver(request):
     #     无论执行正确和错误最终都执行关闭浏览器的方法
     request.addfinalizer(close_browser)
     return driver
+
+@pytest.hookimpl(hookwrapper=True,tryfirst=True)
+def pytest_runtest_makereport(item,call):
+    out = yield
+    res = out.get_result()
+    if res.when == "call":
+        logging.info(f"用例ID:{res.nodeid}")
+        logging.info(f"测试结果:{res.outcome}")
+        # logging.info(f"测试故障表示:{res.longrepr}")
+        # logging.info(f"异常：{call.excinfo}")
+        # logging.info(f"异常:{res.duration}")
+        logging.info("****************************************")
 

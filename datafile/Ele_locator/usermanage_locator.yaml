@@ -22,7 +22,7 @@
     mail_adress: '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[3]/div/div/div[2]/div/div[1]/form/div[1]/div/div/textarea'
     regist_to: '//*[@id="pane-accountManager"]/div/div[3]/div/div/div[2]/div/div[1]/form/div[2]/div/div/div[1]'
     select_regist_to: "(//span[@class='el-radio__inner'])[2]"
-    role: "(//input[@placeholder='选择角色'])[1]"
+    role: '//*[@id="pane-accountManager"]/div/div[3]/div/div/div[2]/div/div[1]/form/div[3]/div/div/div[2]/input'
     select_role: "(//li[@class='el-select-dropdown__item'])[4]"
     next_step: '/html/body/div[1]/div/div[3]/section/div/div[2]/div[2]/div[1]/div/div[3]/div/div/div[3]/div/div[1]/button[2]'
     inv_user_save_btn: '//*[@id="pane-accountManager"]/div/div[3]/div/div/div[3]/div/div[2]/button[3]'
