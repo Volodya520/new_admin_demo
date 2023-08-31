@@ -1,16 +1,14 @@
 import os
 import time
 import pytest
-from twisted.conch.telnet import EC
 from new_admin_demo.Utils.get_path import get_par_path
-from new_admin_demo.Utils.log import conf
 from new_admin_demo.Utils.read_yml import get_yaml_data
 import allure
 from new_admin_demo.pages.page_newadmin import *
 
 
 
-# sd反反复复反反复复付
+# sd反反复复反反复复付额外
 
 class Testcase_userregister(object):
     @allure.step('从配置文件中读取登陆数据')
